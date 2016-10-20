@@ -1,0 +1,7 @@
+C:\Users\zoric\OneDrive\Dokumenti\Visual Studio 2015\Projects\ActivitiDotNet\ActivitiDotNet\bin\Debug\ActivitiDotNet.dll
+C:\Users\zoric\OneDrive\Dokumenti\Visual Studio 2015\Projects\ActivitiDotNet\ActivitiDotNet\bin\Debug\ActivitiDotNet.pdb
+C:\Users\zoric\OneDrive\Dokumenti\Visual Studio 2015\Projects\ActivitiDotNet\ActivitiDotNet\obj\Debug\ActivitiDotNet.csprojResolveAssemblyReference.cache
+C:\Users\zoric\OneDrive\Dokumenti\Visual Studio 2015\Projects\ActivitiDotNet\ActivitiDotNet\obj\Debug\ActivitiDotNet.dll
+C:\Users\zoric\OneDrive\Dokumenti\Visual Studio 2015\Projects\ActivitiDotNet\ActivitiDotNet\obj\Debug\ActivitiDotNet.pdb
+C:\Users\zoric\OneDrive\Dokumenti\Visual Studio 2015\Projects\ActivitiDotNet\ActivitiDotNet\bin\Debug\Newtonsoft.Json.dll
+C:\Users\zoric\OneDrive\Dokumenti\Visual Studio 2015\Projects\ActivitiDotNet\ActivitiDotNet\bin\Debug\Newtonsoft.Json.xml
