@@ -16,7 +16,7 @@ namespace ActivitiDotNet.Process.Instance
 {
     public class ProcessInstanceInfoProvider : BaseInfoProvider<ProcessInstanceInfo>, IReadable<ProcessInstanceInfo>, IRemoveable<ProcessInstanceInfo>
     {
-
+        private string baseUrl;
         public ProcessInstanceInfoProvider() : base(UrlConstants.PROCESS_INSTANCE) { }
 
         public new ProcessInstanceInfo Get(string id)
@@ -42,7 +42,7 @@ namespace ActivitiDotNet.Process.Instance
         public ProcessInstanceInfo ActivateOrSuspend(string processId, ActivateOrSuspend activateOrSuspend)
         {
             JObject body = new JObject();
-            body.Add("action", activateOrSuspend.ToString());
+            body.Add("action", activateOrSuspend.ToString().ToLower());
 
             string url = string.Concat(UrlConstants.PROCESS_INSTANCE, "/", processId);
             return ExecuteOperation(url, HttpMethod.PUT, "kermit", "kermit", body.ToString());
@@ -97,11 +97,26 @@ namespace ActivitiDotNet.Process.Instance
             return BaseInfoProvider<VariableInfo>.ExecuteOperation(url, HttpMethod.POST, "kermit", "kermit", JsonConvert.SerializeObject(variable));
         }
 
-        public VariableInfo CreateVariables(string processInstance, List<VariableInfo> variable)
+        public VariableInfo CreateVariables(string processInstanceId, List<VariableInfo> variable)
         {
-            string url = string.Format("{0}/{1}/variables", UrlConstants.PROCESS_INSTANCE, processInstance);
+            string url = string.Format("{0}/{1}/variables", UrlConstants.PROCESS_INSTANCE, processInstanceId);
             return BaseInfoProvider<VariableInfo>.ExecuteOperation(url, HttpMethod.PUT, "kermit", "kermit", JsonConvert.SerializeObject(variable));
         }
+
+        public ProcessInstanceInfo GetDiagram(string processId)
+        {
+            string url = string.Format("{0}/{1}/diagram", UrlConstants.PROCESS_INSTANCE, processId);
+
+            return ExecuteOperation(url, HttpMethod.GET, "kermit", "kermit");
+        }
+
+        public List<UserInfo> GetInvolvedUsers(string processId)
+        {
+            string url = string.Format("{0}/{1}/{2}/identitylinks", UrlConstants.PROCESS_INSTANCE, processId);
+
+            return BaseInfoProvider<List<UserInfo>>.ExecuteOperation(url, HttpMethod.GET, "kermit", "kermit");
+        }
+
 
     }
 }

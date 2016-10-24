@@ -6,9 +6,7 @@ using ActivitiDotNet.Configuration;
 using ActivitiDotNet.Constants;
 using ActivitiDotNet.Model;
 using ActivitiDotNet.Network;
-using ActivitiDotNet.Network.Model;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ActivitiDotNet.Process

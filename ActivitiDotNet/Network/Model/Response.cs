@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -41,9 +38,19 @@ namespace ActivitiDotNet.Network.Model
             {
                 if (!string.IsNullOrEmpty(root))
                 {
-                    JObject json = JObject.Parse(this.Body);
+                    JObject json = new JObject();
+                    T retvalue = default(T);
 
-                    return JsonConvert.DeserializeObject<T>(json.SelectToken(root).ToString());
+                    try
+                    {
+                        json = JObject.Parse(this.Body);
+                    }
+                    catch { }
+
+                    if(json.SelectToken(root)  != null)
+                        retvalue = JsonConvert.DeserializeObject<T>(json.SelectToken(root).ToString());
+
+                    return retvalue;
                 }
                 else
                 {

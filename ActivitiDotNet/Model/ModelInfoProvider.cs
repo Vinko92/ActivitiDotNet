@@ -22,9 +22,9 @@ namespace ActivitiDotNet.Model
             return base.GetAll();
         }
 
-        public new ModelInfo Create(ModelInfo value)
+        public new void Create(ModelInfo value)
         {
-            return base.Create(value);
+            base.Create(ref value);
         }
 
         public new ModelInfo Update(string id, ModelInfo value)
@@ -40,6 +40,11 @@ namespace ActivitiDotNet.Model
         public new bool TryDelete(string id, out ModelInfo value)
         {
             return base.TryDelete(id, out value);
+        }
+
+        void IWriteable<ModelInfo>.Create(ref ModelInfo value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -22,6 +22,9 @@ namespace ActivitiDotNet.Process.Instance
         [DataMember(Name = "processDefinitionUrl", EmitDefaultValue = false)]
         public string ProcessDefinitionUrl { get; set; }
 
+        [DataMember(Name = "processDefinitionId", EmitDefaultValue = false)]
+        public string ProcessDefinitionId { get; set; }
+
         [DataMember(Name = "activityId", EmitDefaultValue = false)]
         public string ActivityId { get; set; }
 

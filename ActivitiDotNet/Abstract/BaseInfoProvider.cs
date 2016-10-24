@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using ActivitiDotNet.Configuration;
@@ -15,10 +16,14 @@ namespace ActivitiDotNet.Abstract
         protected string _url;
         protected string _username;
         protected string _password;
+        protected string _baseUrl;
 
         public BaseInfoProvider(string url)
         {
-            _url = ConfigurationManager.Instance.BaseUrl + url;
+            _baseUrl = ConfigurationManager.Instance.BaseUrl;
+
+            _url = url;
+
             _username = AuthorizationManager.Instance.Username;
             _password = AuthorizationManager.Instance.Password; ;
         }
@@ -28,14 +33,24 @@ namespace ActivitiDotNet.Abstract
         /// </summary>
         /// <returns>List of <typeparamref name="T"/></returns>
         /// <exception cref="System.Exception">Throws Activity exception.</exception>
-        protected List<T> GetAll()
+        internal virtual List<T> GetAll()
         {
-            return BaseInfoProvider<List<T>>.ExecuteOperation(_url, HttpMethod.GET, _username, _password, jsonRoot: "data");
+            return BaseInfoProvider<List<T>>.ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.GET, _username, _password, jsonRoot: "data");
         }
 
-        protected async Task<List<T>> GetAllAsync()
+        /// <summary>
+        /// Get all objects.<typeparamref name="T"/></returns>
+        /// </summary>
+        /// <returns>List of <typeparamref name="T"/></returns>
+        /// <exception cref="System.Exception">Throws Activity exception.</exception>
+        internal List<T> GetAll(string jsonRoot)
         {
-            ActivitiRESTClient<T> client = new ActivitiRESTClient<T>(_url, HttpMethod.GET);
+            return BaseInfoProvider<List<T>>.ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.GET, _username, _password, jsonRoot);
+        }
+
+        internal async Task<List<T>> GetAllAsync()
+        {
+            ActivitiRESTClient<T> client = new ActivitiRESTClient<T>(_baseUrl + _url, HttpMethod.GET);
             Response<T> response = await client.GetAsync(_username, _password);
 
             JObject jsonResponse = JObject.Parse(response.Body);
@@ -45,16 +60,23 @@ namespace ActivitiDotNet.Abstract
         }
 
 
-        protected T Get(string id)
+        internal T Get(string id)
         {
-            string url = string.Concat(_url, "/", id);
+            string url = string.Concat(_baseUrl,_url, "/", id);
 
-            return ExecuteOperation(url, HttpMethod.GET, _username, _password);
+            return ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.GET, _username, _password);
         }
 
-        protected bool TryDelete(string id, out T responseObject)
+        internal T Get(string id, string jsonRoot)
         {
-            var client = new ActivitiRESTClient<T>(string.Concat(_url, "/", id), HttpMethod.DELETE);
+            string url = string.Concat(_baseUrl, _url, "/", id);
+
+            return ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.GET, _username, _password, jsonRoot);
+        }
+
+        internal bool TryDelete(string id, out T responseObject)
+        {
+            var client = new ActivitiRESTClient<T>(string.Concat(_baseUrl,_url, "/", id), HttpMethod.DELETE);
 
             Response<T> response = client.Delete(_username, _password);
             int status = (int)response.StatusCode;
@@ -64,28 +86,28 @@ namespace ActivitiDotNet.Abstract
             return status >= 200 && status < 300;
         }
 
-        protected T Delete(string id)
+        internal T Delete(string id)
         {
-            string url = string.Concat(_url, "/", id);
+            string url = string.Concat(_baseUrl, _url, "/", id);
 
             return ExecuteOperation(url, HttpMethod.DELETE, _username, _password);
         }
 
-        protected T Update(string id, T value)
+        internal T Update(string id, T value)
         {
-            string url = string.Concat(_url, "/", id);
+            string url = string.Concat(_baseUrl, _url, "/", id);
 
-            return ExecuteOperation(url, HttpMethod.PUT, _username, _password);
+            return ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.PUT, _username, _password);
         }
 
-        protected T Create(T value)
+        internal void Create(ref T value)
         {
-            return ExecuteOperation(string.Concat(_url), HttpMethod.POST,_username, _password, JsonConvert.SerializeObject(value));
+            value = ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.POST,_username, _password, JsonConvert.SerializeObject(value));
         }
 
         protected static T ExecuteOperation(string url, HttpMethod method, string username, string password, string body = "", string jsonRoot = "")
         {
-            ActivitiRESTClient<T> client = InitClient(url, method, body);
+            ActivitiRESTClient<T> client = InitClient(FormatUrl(url), method, body);
             Response<T> response = null;
           
             switch (method)
@@ -125,6 +147,20 @@ namespace ActivitiDotNet.Abstract
             return client;
         }
 
+        private static string FormatUrl(string url)
+        {
+            Uri uri;
 
+            try
+            {
+                uri = new Uri(url);
+            }
+            catch
+            {
+                uri = new Uri(ConfigurationManager.Instance.BaseUrl + url);
+            }
+
+            return uri.AbsoluteUri;
+        }
     }
 }

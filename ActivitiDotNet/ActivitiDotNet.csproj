@@ -52,16 +52,25 @@
     <Compile Include="Abstract\IWriteable.cs" />
     <Compile Include="Authorization\AuthorizationManager.cs" />
     <Compile Include="Base\AbstractInfoProvider.cs" />
+    <Compile Include="Base\BaseInfo.cs" />
+    <Compile Include="Collection\BaseInfoCollection.cs" />
+    <Compile Include="Collection\IInfoObjectCollection.cs" />
+    <Compile Include="Comment\CommentInfo.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="Configuration\ConfigurationStrings.cs" />
     <Compile Include="Constants\UrlConstants.cs" />
+    <Compile Include="CustomModel\GroupInfo.cs" />
     <Compile Include="CustomModel\VariableInfo.cs" />
     <Compile Include="Deployment\DeploymentInfo.cs" />
     <Compile Include="Deployment\DeploymentInfoProvider.cs" />
     <Compile Include="Deployment\DeploymentResourceInfo.cs" />
     <Compile Include="Deployment\DeploymentResourceInfoProvider.cs" />
     <Compile Include="Enums\ActivateOrSuspend.cs" />
+    <Compile Include="Enums\ExecutionAction.cs" />
+    <Compile Include="Enums\IdentityLinkFamily.cs" />
     <Compile Include="Enums\Scope.cs" />
+    <Compile Include="Enums\TaskAction.cs" />
+    <Compile Include="Event\EventInfo.cs" />
     <Compile Include="Exceptions\BadRequestException.cs" />
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\BodyFormatException.cs" />
@@ -72,7 +81,7 @@
     <Compile Include="Helpers\MultipartHelper.cs" />
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
-    <Compile Include="CustomModel\User.cs" />
+    <Compile Include="CustomModel\UserInfo.cs" />
     <Compile Include="Model\ModelInfo.cs" />
     <Compile Include="Model\ModelInfoProvider.cs" />
     <Compile Include="Network\ActivitiRESTClient.cs" />
@@ -86,6 +95,9 @@
     <Compile Include="Process\Instance\ProcessInstanceInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\SharedStrings.cs" />
+    <Compile Include="Task\TaskInfo.cs" />
+    <Compile Include="Task\TaskInfoProvider.cs" />
+    <Compile Include="User\GroupInfoProvider.cs" />
     <Compile Include="User\UserInfoProvider.cs" />
     <Compile Include="Variable\VariableInfoProvider.cs" />
   </ItemGroup>

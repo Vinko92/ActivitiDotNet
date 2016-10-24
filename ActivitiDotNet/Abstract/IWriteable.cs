@@ -4,7 +4,7 @@
     {
         T Update(string id, T value);
 
-        T Create(T value);
+        void Create(ref T value);
 
     }
 }
