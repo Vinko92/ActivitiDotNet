@@ -3,7 +3,7 @@
 namespace ActivitiDotNet.Deployment
 {
     [DataContract]
-    public class DeploymentResourceInfo
+    public class ResourceInfo
     {
         [DataMember(Name = "id")]
         public string Id { get; set; }

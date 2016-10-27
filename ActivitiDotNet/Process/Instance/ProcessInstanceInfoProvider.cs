@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using ActivitiDotNet.Abstract;
 using ActivitiDotNet.Constants;
 using ActivitiDotNet.CustomModel;
 using ActivitiDotNet.Enums;
-using ActivitiDotNet.Helpers;
 using ActivitiDotNet.Model;
 using ActivitiDotNet.Network;
-using ActivitiDotNet.Network.Model;
 using ActivitiDotNet.Variable;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -28,6 +27,8 @@ namespace ActivitiDotNet.Process.Instance
         {
             return base.GetAll();
         }
+
+        //TODO: Query 
 
         public new ProcessInstanceInfo Delete(string id)
         {
@@ -117,6 +118,6 @@ namespace ActivitiDotNet.Process.Instance
             return BaseInfoProvider<List<UserInfo>>.ExecuteOperation(url, HttpMethod.GET, "kermit", "kermit");
         }
 
-
+        //TODO: CRUD binary variables
     }
 }

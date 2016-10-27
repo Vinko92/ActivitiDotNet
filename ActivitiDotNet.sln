@@ -5,7 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivitiDotNet", "ActivitiDotNet\ActivitiDotNet.csproj", "{38253209-928C-4775-AFC0-F89BEE0ED381}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{39031C73-0C9A-463C-B667-8CDEE0C900D8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Harness", "Test Harness", "{9CA36FC2-0E78-4528-8253-9369336B9DA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{7824A706-7071-494D-9581-E031C4C72806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +19,15 @@ Global
 		{38253209-928C-4775-AFC0-F89BEE0ED381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38253209-928C-4775-AFC0-F89BEE0ED381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38253209-928C-4775-AFC0-F89BEE0ED381}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39031C73-0C9A-463C-B667-8CDEE0C900D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39031C73-0C9A-463C-B667-8CDEE0C900D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39031C73-0C9A-463C-B667-8CDEE0C900D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39031C73-0C9A-463C-B667-8CDEE0C900D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7824A706-7071-494D-9581-E031C4C72806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7824A706-7071-494D-9581-E031C4C72806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7824A706-7071-494D-9581-E031C4C72806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7824A706-7071-494D-9581-E031C4C72806}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7824A706-7071-494D-9581-E031C4C72806} = {9CA36FC2-0E78-4528-8253-9369336B9DA7}
 	EndGlobalSection
 EndGlobal

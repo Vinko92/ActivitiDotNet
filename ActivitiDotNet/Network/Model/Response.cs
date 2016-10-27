@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-
+using ActivitiDotNet.CustomModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -8,10 +8,6 @@ namespace ActivitiDotNet.Network.Model
 {
     internal class Response<T>
     { 
-        private int _statusCode;
-        private object _responseData;
-        private object _responseHeaders;
-
         public HttpStatusCode StatusCode
         {
             get;  set;
@@ -30,6 +26,12 @@ namespace ActivitiDotNet.Network.Model
         public Exception Exception
         {
             get;set;
+        }
+
+        public byte[] ByteData
+        {
+            get;
+            set;
         }
 
         public T ParseResponse(string root = "")
@@ -53,7 +55,7 @@ namespace ActivitiDotNet.Network.Model
                     return retvalue;
                 }
                 else
-                {
+                {                  
                     return JsonConvert.DeserializeObject<T>(this.Body);
                 }
             }

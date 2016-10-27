@@ -30,7 +30,7 @@ namespace ActivitiDotNet.Network
             return _response;
         }
 
-        public async Task<Response<T>> ExecuteAsync(HttpWebRequest httpRequest)
+        public async Task<Response<T>> ExecuteAsync(HttpWebRequest httpRequest, bool isByteResponse = false)
         {
             _response = new Response<T>();
 
@@ -38,7 +38,15 @@ namespace ActivitiDotNet.Network
             {
                 var httpResponse = await httpRequest.GetResponseAsync() as HttpWebResponse;
 
-                ParseResponse(httpResponse);
+                if (isByteResponse)
+                {
+                    ParseResponseBytes(httpResponse);
+                }
+                else
+                {
+                    ParseResponse(httpResponse);
+                }
+
                 httpResponse.Dispose();
             }
             catch (Exception ex)
@@ -54,6 +62,13 @@ namespace ActivitiDotNet.Network
             _response.StatusCode = httpResponse.StatusCode;
             _response.Headers = httpResponse.Headers;
             _response.Body = IOHelper.ReadStream(httpResponse.GetResponseStream());
+        }
+
+        private void ParseResponseBytes(HttpWebResponse httpResponse)
+        {
+            _response.StatusCode = httpResponse.StatusCode;
+            _response.Headers = httpResponse.Headers;
+            _response.ByteData = IOHelper.ReadBytes(httpResponse.GetResponseStream());
         }
     }
 }

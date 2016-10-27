@@ -1,10 +1,16 @@
 ﻿using System.Runtime.Serialization;
+using ActivitiDotNet.Abstract;
+using ActivitiDotNet.Collection;
+using ActivitiDotNet.Constants;
+using ActivitiDotNet.Deployment;
 
 namespace ActivitiDotNet.Process
 {
     [DataContract]
     public class ProcessInfo
     {
+        public BaseInfoCollection<ResourceInfo> _resources;
+
         [DataMember(Name = "id")]
         public string Id { get; set; }
 
@@ -46,5 +52,15 @@ namespace ActivitiDotNet.Process
 
         [DataMember(Name = "startFormDefined")]
         public bool StartFormDefined { get; set; }
+
+        public ResourceInfo Resources
+        {
+            get
+            {
+                return BaseInfoProvider<ResourceInfo>.ExecuteOperation(string.Format(UrlConstants.PROCESS_RESOURCE, Id), Network.HttpMethod.GET, "kermit", "kermit");
+            }
+        }
+
+        //TODO: BPMN Model
     }
 }

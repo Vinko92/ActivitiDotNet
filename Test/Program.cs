@@ -17,21 +17,21 @@ namespace Test
             AuthorizationManager authorizationManager = AuthorizationManager.Instance;
             authorizationManager.Login("kermit", "kermit");
 
-            ProcessInfoProvider processProvider = new ProcessInfoProvider("S");
-            ProcessInstanceInfoProvider processInstanceProvider = new ProcessInstanceInfoProvider();
+           // ProcessInfoProvider processProvider = new ProcessInfoProvider("S");
+           // ProcessInstanceInfoProvider processInstanceProvider = new ProcessInstanceInfoProvider();
 
-            var allProcessDefinitions = processProvider.GetAll();
+           // var allProcessDefinitions = processProvider.GetAll();
 
-            foreach (var processDefinition in allProcessDefinitions)
-            {
-                Console.WriteLine(processDefinition.Id);
-            }
+           // foreach (var processDefinition in allProcessDefinitions)
+           // {
+           //     Console.WriteLine(processDefinition.Id);
+           // }
 
-           processProvider.AddUserCandidate(allProcessDefinitions[allProcessDefinitions.Count - 1].Id, "vzoric");
-            foreach (var user in processProvider.GetAllCandidateStarters("createTimersProcess:1:36"))
-            {
-                Console.WriteLine(user.User);
-            }
+           //processProvider.AddUserCandidate(allProcessDefinitions[allProcessDefinitions.Count - 1].Id, "vzoric");
+           // foreach (var user in processProvider.GetAllCandidateStarters("createTimersProcess:1:36"))
+           // {
+           //     Console.WriteLine(user.User);
+            //}
 
             //ProcessInstanceInfo processInfo = new ProcessInstanceInfo
             //{

@@ -19,6 +19,8 @@ namespace ActivitiDotNet.Execution
             return base.Get(id);
         }
 
+        //TODO: Query
+
         public new List<ExecutionInfo> GetAll()
         {
             return base.GetAll();

@@ -19,18 +19,18 @@ namespace ActivitiDotNet.CustomModel
         [DataMember(Name = "type", EmitDefaultValue = false)]
         public string Type { get; set; }
 
-        public BaseInfoCollection<UserInfo> Members
-        {
-            get
-            {
-                if(_members == null)
-                {
-                    _members = new BaseInfoCollection<UserInfo>(string.Format("{0}/{1}/members", UrlConstants.GROUP, Id));
-                }
+        //public BaseInfoCollection<UserInfo> Members
+        //{
+        //    get
+        //    {
+        //        if(_members == null)
+        //        {
+        //            _members = new BaseInfoCollection<UserInfo>(string.Format("{0}/{1}/members", UrlConstants.GROUP, Id));
+        //        }
 
-                return _members;
-            }
-        }
+        //        return _members;
+        //    }
+        //}
 
     }
 }

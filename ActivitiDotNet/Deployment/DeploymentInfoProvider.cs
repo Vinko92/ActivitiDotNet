@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using ActivitiDotNet.Abstract;
 using ActivitiDotNet.Constants;
-using ActivitiDotNet.Network;
 
 namespace ActivitiDotNet.Deployment
 {

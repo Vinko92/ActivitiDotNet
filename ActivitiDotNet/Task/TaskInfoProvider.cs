@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ActivitiDotNet.Abstract;
 using ActivitiDotNet.Collection;
 using ActivitiDotNet.Comment;
@@ -10,7 +11,6 @@ using ActivitiDotNet.Enums;
 using ActivitiDotNet.Event;
 using ActivitiDotNet.Model;
 using ActivitiDotNet.Network;
-using ActivitiDotNet.User;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,6 +25,10 @@ namespace ActivitiDotNet.Task
         {
 
         }
+
+        //TODO: Query 
+
+        //TODO: CRUD binary variables
 
         public new TaskInfo Get(string id)
         {

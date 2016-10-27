@@ -48,17 +48,17 @@
             _url = url;
         }
 
-        public async Task<Response<T>> GetAsync(string username, string password)
+        public async Task<Response<T>> GetAsync(string username, string password, bool responseIsByte = false)
         {
             AddAuthorizationHeader(username, password);
             RequestExecutor<T> executor = new RequestExecutor<T>();
 
-            return await executor.ExecuteAsync(_request);
+            return await executor.ExecuteAsync(_request, responseIsByte);
         }
 
-        public Response<T> Get(string username, string password)
+        public Response<T> Get(string username, string password, bool responseIsByte = false)
         {
-            return GetAsync(username, password).GetAwaiter().GetResult();
+            return GetAsync(username, password, responseIsByte).GetAwaiter().GetResult();
         }
 
         public Response<T> Post(string username, string password)
@@ -123,9 +123,19 @@
         {
             MultipartHelper.FileParameter f = new MultipartHelper.FileParameter(File.ReadAllBytes(path), fileName, "multipart/form-data");
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("loanRequest", f);
+            parameters.Add(fileName, f);
 
-            return MultipartHelper.MultipartFormDataPost(_url, parameters, username, password).StatusCode;
+            return MultipartHelper.MultipartFormDataPost(_request.RequestUri.AbsolutePath, parameters, username, password).StatusCode;
+        }
+
+        public HttpStatusCode PostFile(byte[] data, string fileName, string mimeType, string username, string password)
+        {
+            MultipartHelper.FileParameter f = new MultipartHelper.FileParameter(data, fileName, "multipart/form-data");
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add(fileName, f);
+            parameters.Add("mimeType", mimeType);
+
+            return MultipartHelper.MultipartFormDataPost(_request.RequestUri.AbsoluteUri, parameters, username, password).StatusCode;
         }
 
         public async Task<Response<T>> DeleteAsync(string username, string password)

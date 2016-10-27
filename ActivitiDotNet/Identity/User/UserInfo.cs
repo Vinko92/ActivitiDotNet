@@ -1,10 +1,15 @@
 ﻿using System.Runtime.Serialization;
+using ActivitiDotNet.Collection;
+using ActivitiDotNet.Constants;
+using ActivitiDotNet.User;
 
 namespace ActivitiDotNet.Model
 {
     [DataContract]
     public class UserInfo
     {
+        private BaseInfoCollection<UserInformations> _infos;
+
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public string Id { get; set; }
 
@@ -31,6 +36,20 @@ namespace ActivitiDotNet.Model
 
         [DataMember(Name = "type", EmitDefaultValue = false)]
         public string Type { get; set; }
+
+        public BaseInfoCollection<UserInformations> Informations
+        {
+            get
+            {
+                if(_infos == null)
+                {
+                    _infos = new BaseInfoCollection<UserInformations>(string.Format("{0}/{1}/info",UrlConstants.USER, Id));
+                }
+
+                return _infos;
+            }
+        }
+
 
     }
 }

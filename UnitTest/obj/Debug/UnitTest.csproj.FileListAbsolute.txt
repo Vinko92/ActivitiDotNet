@@ -1,0 +1,9 @@
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\bin\Debug\UnitTest.dll
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\bin\Debug\UnitTest.pdb
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\bin\Debug\ActivitiDotNet.dll
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\bin\Debug\Newtonsoft.Json.dll
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\bin\Debug\ActivitiDotNet.pdb
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\bin\Debug\Newtonsoft.Json.xml
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\obj\Debug\UnitTest.dll
+C:\Users\zoric\onedrive\dokumenti\visual studio 2015\Projects\ActivitiDotNet\UnitTest\obj\Debug\UnitTest.pdb

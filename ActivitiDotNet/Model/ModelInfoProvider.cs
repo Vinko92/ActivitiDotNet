@@ -46,5 +46,13 @@ namespace ActivitiDotNet.Model
         {
             throw new NotImplementedException();
         }
+
+        //TODO: Get Editor source
+
+        //TODO: Set Editor source 
+
+        //TODO:  Get extra editor source
+
+        //TODO: Set extra editor source
     }
 }

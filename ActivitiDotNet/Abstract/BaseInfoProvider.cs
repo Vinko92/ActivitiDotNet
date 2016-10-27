@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 using ActivitiDotNet.Configuration;
@@ -11,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ActivitiDotNet.Abstract
 {
-    public class BaseInfoProvider<T> where T : class 
+    public class BaseInfoProvider<T> where T : class
     {
         protected string _url;
         protected string _username;
@@ -29,13 +30,31 @@ namespace ActivitiDotNet.Abstract
         }
 
         /// <summary>
-        /// Get all objects.<typeparamref name="T"/></returns>
+        /// Get all objects.
         /// </summary>
         /// <returns>List of <typeparamref name="T"/></returns>
-        /// <exception cref="System.Exception">Throws Activity exception.</exception>
+        /// <exception cref="System.Exception"></exception>
         internal virtual List<T> GetAll()
         {
             return BaseInfoProvider<List<T>>.ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.GET, _username, _password, jsonRoot: "data");
+        }
+
+        //TODO: Sort, TenantId, Pagination
+
+        /// <summary>
+        /// Get all objects.
+        /// </summary>
+        /// <returns>List of <typeparamref name="T"/></returns>
+        /// <exception cref="System.Exception"></exception>
+        /// <example>
+        /// Usage:
+        ///     GetAll("id:jobid","executionId:executionId");
+        /// </example>
+        internal virtual List<T> GetAll(params string[] queryKeyValues)
+        {
+            string url = string.Concat(_baseUrl, _url) + "?" + string.Join("&", queryKeyValues);
+
+            return BaseInfoProvider<List<T>>.ExecuteOperation(url, HttpMethod.GET, _username, _password, jsonRoot: "data");
         }
 
         /// <summary>
@@ -62,9 +81,9 @@ namespace ActivitiDotNet.Abstract
 
         internal T Get(string id)
         {
-            string url = string.Concat(_baseUrl,_url, "/", id);
+            string url = string.Concat(_baseUrl, _url, "/", id);
 
-            return ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.GET, _username, _password);
+            return ExecuteOperation(url, HttpMethod.GET, _username, _password);
         }
 
         internal T Get(string id, string jsonRoot)
@@ -76,7 +95,7 @@ namespace ActivitiDotNet.Abstract
 
         internal bool TryDelete(string id, out T responseObject)
         {
-            var client = new ActivitiRESTClient<T>(string.Concat(_baseUrl,_url, "/", id), HttpMethod.DELETE);
+            var client = new ActivitiRESTClient<T>(string.Concat(_baseUrl, _url, "/", id), HttpMethod.DELETE);
 
             Response<T> response = client.Delete(_username, _password);
             int status = (int)response.StatusCode;
@@ -97,19 +116,19 @@ namespace ActivitiDotNet.Abstract
         {
             string url = string.Concat(_baseUrl, _url, "/", id);
 
-            return ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.PUT, _username, _password);
+            return ExecuteOperation(url, HttpMethod.PUT, _username, _password);
         }
 
         internal void Create(ref T value)
         {
-            value = ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.POST,_username, _password, JsonConvert.SerializeObject(value));
+            value = ExecuteOperation(string.Concat(_baseUrl, _url), HttpMethod.POST, _username, _password, JsonConvert.SerializeObject(value));
         }
 
-        protected static T ExecuteOperation(string url, HttpMethod method, string username, string password, string body = "", string jsonRoot = "")
+        internal static T ExecuteOperation(string url, HttpMethod method, string username, string password, string body = "", string jsonRoot = "")
         {
             ActivitiRESTClient<T> client = InitClient(FormatUrl(url), method, body);
             Response<T> response = null;
-          
+
             switch (method)
             {
                 case HttpMethod.POST:
@@ -129,6 +148,47 @@ namespace ActivitiDotNet.Abstract
             }
 
             return response.ParseResponse(jsonRoot);
+        }
+
+        internal static byte[] GetBytes(string url, string username, string password)
+        {
+            ActivitiRESTClient<T> client = InitClient(FormatUrl(url), HttpMethod.GET, string.Empty);
+            Response<T> response = null;
+
+            response = client.Get(username, password, true);
+
+            return response.ByteData;
+        }
+
+        internal static Dictionary<string, string> GetProperties(string url, string username, string password)
+        {
+            ActivitiRESTClient<T> client = InitClient(FormatUrl(url), HttpMethod.GET, string.Empty);
+            Response<T> response = null;
+            Dictionary<string, string> properties = new Dictionary<string, string>();
+
+            response = client.Get(username, password, true);
+            if (response.Exception != null)
+            {
+                JObject json = JObject.Parse(response.Body);
+
+                foreach (JToken jsonToken in json.Children())
+                {
+                    var next = jsonToken.Next;
+                }
+
+                return properties;
+            }
+            else
+            {
+                throw response.Exception;
+            }
+        }
+
+        internal static HttpStatusCode PostFile(string url, byte[] fileData, string fileName, string mimeType, string username, string password)
+        {
+            ActivitiRESTClient<T> client = InitClient(FormatUrl(url), HttpMethod.GET, string.Empty);
+
+            return client.PostFile(fileData, fileName, mimeType, username, password);
         }
 
         private static ActivitiRESTClient<T> InitClient(string url, HttpMethod method, string body)
